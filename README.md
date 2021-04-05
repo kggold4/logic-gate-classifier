@@ -1,43 +1,56 @@
 <div dir="rtl" lang="he">
 
-# לוח מודעות דו ממדי
+# Systems praogramming with C++ - Assignments 2
 
-כתבו מחלקה לניהול לוח מחלקות דו ממדי, בהתאם להוראות בחלק א.
+### <i> By Kfir Goldfarb </i>
 
-בשלב ב עליכם לכתוב מימוש מלא. המימוש צריך לעבור את כל הבדיקות (60% מהציון):
+This assignment is to implement a 2D messegeboard class called Board
 
-<div dir='ltr'>
+## How to use:
 
-    make test
-    ./test
+### creating a board:
+```ariel::Board board;```
 
-</div>
+the board class have 3 main methods:
+1. ```post```
+2. ```read```
+3. ```show```
 
-בנוסף, הקוד צריך לעבור בהצלחה את מבחן הקריאות (20% מהציון):
+### post:
+<i> posting a text on the messegeboard: </i>
 
-<div dir='ltr'>
+for example:
+```board.post(/*row=*/100, /*column=*/200, Direction::Horizontal, "abcd");```
+```board.post(/*row=*/99, /*column=*/202, Direction::Vertical, "xyz");```
+the results:
+```
+98:  _________
+99:  ____x____
+100: __abyd___
+101: ____z____
+102: _________
+```
 
-    make tidy
+### read:
+<i> reading a text from the messeageboard: </i>
 
-</div>
+for example:
+```cout << board.read(/*row=*/100, /*column=*/200, Direction::Horizontal, /*length=*/6) << endl;```
+the results:
+```
+"abyd__"
+```
 
-ואת מבחן הזיכרון (20% מהציון):
+### show:
+<i> will print the all borad </i>
 
-<div dir='ltr'>
-
-    make valgrind
-
-</div>
-
-בנוסף, יש לכתוב **תוכנית ראשית** כלשהי המדגימה את הפתרון שלכם.
-תוכן התוכנית לבחירתכם - תהיו יצירתיים. התוכנית לא תיבדק אוטומטית אלא רק בהצגה.
-
-כשהגעתם למצב ששתי הפקודות רצות בלי שגיאות, תוכלו לבדוק את הציון שלכם ע"י הפקודה:
-
-<div dir='ltr'>
-
-    bash grade
-
-</div>
-
-</div>
+for example:
+```board.show();```
+the results:
+```
+98:  _________
+99:  ____x____
+100: __abyd___
+101: ____z____
+102: _________
+```
