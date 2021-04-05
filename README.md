@@ -18,11 +18,17 @@ the board class have 3 main methods:
 <i> posting a text on the messegeboard: </i>
 
 for example:
+
+
 ```board.post(/*row=*/100, /*column=*/200, Direction::Horizontal, "abcd");```
 
 
 ```board.post(/*row=*/99, /*column=*/202, Direction::Vertical, "xyz");```
+
+
 the results:
+
+
 ```
 98:  _________
 99:  ____x____
@@ -35,8 +41,14 @@ the results:
 <i> reading a text from the messeageboard: </i>
 
 for example:
+
+
 ```cout << board.read(/*row=*/100, /*column=*/200, Direction::Horizontal, /*length=*/6) << endl;```
+
+
 the results:
+
+
 ```
 "abyd__"
 ```
@@ -45,8 +57,14 @@ the results:
 <i> will print the all borad </i>
 
 for example:
+
+
 ```board.show();```
+
+
 the results:
+
+
 ```
 98:  _________
 99:  ____x____
