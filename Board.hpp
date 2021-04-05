@@ -1,57 +1,46 @@
 #pragma once
 
 // includes
-#include <string>
 #include <vector>
+#include <string>
 #include "Direction.hpp"
 
-// namespaces
-using ariel::Direction;
 using namespace std;
 
 // declare board class in ariel namespace
 namespace ariel {
+
+    // borad class
     class Board {
 
         // private methods and variables
         private:
 
-            // the matrix of the meesageboard
-            vector<vector<char>> matrix;
-
-            // n is the horizontal size of the matrix
-            unsigned int n;
-
-            // m is the vertical size of the metrix
-            unsigned int m;
-
-            // private resize method
-            void resizeBoard(unsigned int i, unsigned int j) {
-                this->n = i;
-                this->m = j;
-                this->matrix.resize(i);
-                for(unsigned int p = 0; p < i ; p++) {
-                    this->matrix[p].resize(j, '_');
-                }
-            }
+            // the board
+            vector<string> board;
+            unsigned int horizontal_start = INT32_MAX;
+            int horizontal_end = -1;
+            unsigned int vertical_start = INT32_MAX;
+            int vertical_end = -1;
+            void update_bounderys(unsigned int horizontal, unsigned int vertical,Direction d, unsigned int len);
+            void postHorizontal(unsigned int horizontal,unsigned int vertical,const std::string& message);
+            void postVertical(unsigned int horizontal,unsigned int vertical,std::string message);
+            std::string readHorizontal(unsigned int horizontal, unsigned int vertical, unsigned int len);
+            std::string readVertical(unsigned int horizontal, unsigned int vertical, unsigned int len);
 
         // public methods and variables
         public:
 
-            // default constructor
-            Board() {
-                this->matrix = vector<vector<char>>(0, vector<char> (0, '_'));
-                this->n = 0;
-                this->m = 0;
-            }
+            // constructor
+            Board() noexcept: board(0, "_") {};
 
-            // posting on the board
-            void post(unsigned int i, unsigned int j, Direction dir, std::string str);
+            // post method
+            void post(unsigned int horizontal, unsigned int vertical, Direction d, const std::string &message);
 
-            // read from the board
-            std::string read(unsigned int i, unsigned int j, Direction dir, unsigned int len);
+            // read method
+            std::string read(unsigned int horizontal, unsigned int vertical, Direction d, unsigned int length);
 
-            // print board
+            // show method
             void show();
     };
 }
