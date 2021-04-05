@@ -1,5 +1,3 @@
-<div dir="rtl" lang="he">
-
 # Systems praogramming with C++ - Assignments 2
 
 ### <i> By Kfir Goldfarb </i>
@@ -21,6 +19,8 @@ the board class have 3 main methods:
 
 for example:
 ```board.post(/*row=*/100, /*column=*/200, Direction::Horizontal, "abcd");```
+
+
 ```board.post(/*row=*/99, /*column=*/202, Direction::Vertical, "xyz");```
 the results:
 ```
