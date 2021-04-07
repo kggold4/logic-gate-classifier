@@ -35,7 +35,7 @@ string ariel::Board::read(unsigned int horizontal, unsigned int vertical, Direct
     switch(d) {
         case Direction::Horizontal:
             str_from_board.at(0).resize(len, '_');
-            if(horizontal+1 > h_end || horizontal < h_start) {
+            if(horizontal + 1 > h_end || horizontal < h_start) {
                 return str_from_board.at(0);
                 }
             for(unsigned int i = 0; i < len; ++i) {
@@ -46,7 +46,7 @@ string ariel::Board::read(unsigned int horizontal, unsigned int vertical, Direct
             return str_from_board.at(0);
         case Direction::Vertical:
             str_from_board.at(0).resize(len, '_');
-            if(vertical+1 > (int)v_end || vertical < v_start) { return str_from_board.at(0); }
+            if(vertical + 1 > (int)v_end || vertical < v_start) { return str_from_board.at(0); }
             for(unsigned int i = 0; i < len && horizontal + i < h_end; ++i) {
                 try {
                     str_from_board.at(0).at(i) = board.at(horizontal-h_start + i).at(vertical-v_start);
