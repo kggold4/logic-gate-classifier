@@ -16,17 +16,22 @@ namespace ariel {
         // private methods and variables
         private:
 
-            // the board
+            // the board represent by vector
             vector<string> board;
-            unsigned int horizontal_start = INT32_MAX;
-            int horizontal_end = -1;
-            unsigned int vertical_start = INT32_MAX;
-            int vertical_end = -1;
-            void update_bounderys(unsigned int horizontal, unsigned int vertical,Direction d, unsigned int len);
-            void postHorizontal(unsigned int horizontal,unsigned int vertical,const std::string& message);
-            void postVertical(unsigned int horizontal,unsigned int vertical,std::string message);
-            std::string readHorizontal(unsigned int horizontal, unsigned int vertical, unsigned int len);
-            std::string readVertical(unsigned int horizontal, unsigned int vertical, unsigned int len);
+
+            // horizontal
+            unsigned int h_start = INT32_MAX;
+            int h_end = -1;
+            void h_post(unsigned int horizontal,unsigned int vertical,const string& message);
+            string h_read(unsigned int horizontal, unsigned int vertical, unsigned int len);
+
+            // vertical
+            unsigned int v_start = INT32_MAX;
+            int v_end = -1;
+            void v_post(unsigned int horizontal,unsigned int vertical,string message);
+            string v_read(unsigned int horizontal, unsigned int vertical, unsigned int len);
+
+            void update(unsigned int horizontal, unsigned int vertical,Direction d, unsigned int len);
 
         // public methods and variables
         public:
@@ -35,10 +40,10 @@ namespace ariel {
             Board() noexcept: board(0, "_") {};
 
             // post method
-            void post(unsigned int horizontal, unsigned int vertical, Direction d, const std::string &message);
+            void post(unsigned int horizontal, unsigned int vertical, Direction dir, const string &message);
 
             // read method
-            std::string read(unsigned int horizontal, unsigned int vertical, Direction d, unsigned int length);
+            string read(unsigned int horizontal, unsigned int vertical, Direction dir, unsigned int length);
 
             // show method
             void show();
