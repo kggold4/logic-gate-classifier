@@ -16,21 +16,14 @@ namespace ariel {
         // private methods and variables
         private:
 
+            // helpful variables
+            unsigned int h_start = INT32_MAX, v_start = INT32_MAX;
+            int h_end = -1, v_end = -1;
+
             // the board represent by vector
             vector<string> board;
 
-            // horizontal
-            unsigned int h_start = INT32_MAX;
-            int h_end = -1;
-            void h_post(unsigned int horizontal,unsigned int vertical,const string& message);
-            string h_read(unsigned int horizontal, unsigned int vertical, unsigned int len);
-
-            // vertical
-            unsigned int v_start = INT32_MAX;
-            int v_end = -1;
-            void v_post(unsigned int horizontal,unsigned int vertical,string message);
-            string v_read(unsigned int horizontal, unsigned int vertical, unsigned int len);
-
+            // private update method
             void update(unsigned int horizontal, unsigned int vertical,Direction d, unsigned int len);
 
         // public methods and variables

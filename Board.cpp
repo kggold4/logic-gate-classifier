@@ -13,56 +13,16 @@
 using namespace std;
 using ariel::Direction;
 
-// horizontal post function
-void ariel::Board::h_post(unsigned int horizontal, unsigned int vertical, const string& message) {
-    board.at(horizontal-h_start).replace(vertical-v_start,message.length(),message);
-}
-
-// vertical post function
-void ariel::Board::v_post(unsigned int horizontal, unsigned int vertical, string message) {
-    for(unsigned int i = 0; i < message.length() ; ++i) { board.at(horizontal-h_start+i).at(vertical-v_start) = message[i]; }
-}
-
-// horizontal read function
-string ariel::Board::h_read(unsigned int horizontal, unsigned int vertical, unsigned int len) {
-    vector<string> str_from_board(1, "_");
-    str_from_board.at(0).resize(len, '_');
-    if(horizontal+1 > h_end || horizontal < h_start) {
-        return str_from_board.at(0);
-        }
-    for(unsigned int i = 0; i < len; ++i) {
-        try {
-            str_from_board.at(0).at(i)=board.at(horizontal-h_start).at(vertical-v_start+i);
-        } catch (const exception& e) {}
-    }
-    return str_from_board.at(0);
-}
-
-// vertical read function
-string ariel::Board::v_read(unsigned int horizontal, unsigned int vertical, unsigned int len) {
-    vector<string> str_from_board(1,"_");
-    str_from_board.at(0).resize(len, '_');
-    if(vertical+1 > (int)v_end || vertical < v_start) { return str_from_board.at(0); }
-    for(unsigned int i = 0; i < len && horizontal + i < h_end; ++i) {
-        try {
-            str_from_board.at(0).at(i) = board.at(horizontal-h_start + i).at(vertical-v_start);
-        } catch (const exception& e) {
-
-        }
-    }
-    return str_from_board.at(0);
-}
-
 // post function
 void ariel::Board::post(unsigned int horizontal, unsigned int vertical, Direction dir, const string &message){
     switch(dir) {
         case Direction::Horizontal:
             update(horizontal, vertical, dir, message.length());
-            h_post(horizontal, vertical, message);
+            board.at(horizontal-h_start).replace(vertical-v_start,message.length(),message);
             break;
         case Direction::Vertical:
             update(horizontal, vertical, dir, message.length());
-            v_post(horizontal,vertical, message);
+            for(unsigned int i = 0; i < message.length() ; ++i) { board.at(horizontal-h_start+i).at(vertical-v_start) = message[i]; }
             break;
         default:
             throw out_of_range("invalid Direction type");
@@ -70,12 +30,31 @@ void ariel::Board::post(unsigned int horizontal, unsigned int vertical, Directio
 }
 
 // read function
-string ariel::Board::read(unsigned int horizontal, unsigned int vertical, Direction d, unsigned int length) {
+string ariel::Board::read(unsigned int horizontal, unsigned int vertical, Direction d, unsigned int len) {
+    vector<string> str_from_board(1, "_");
     switch(d) {
         case Direction::Horizontal:
-            return h_read(horizontal,vertical,length);
+            str_from_board.at(0).resize(len, '_');
+            if(horizontal+1 > h_end || horizontal < h_start) {
+                return str_from_board.at(0);
+                }
+            for(unsigned int i = 0; i < len; ++i) {
+                try {
+                    str_from_board.at(0).at(i)=board.at(horizontal-h_start).at(vertical-v_start+i);
+                } catch (const exception& e) {}
+            }
+            return str_from_board.at(0);
         case Direction::Vertical:
-            return v_read(horizontal,vertical,length);
+            str_from_board.at(0).resize(len, '_');
+            if(vertical+1 > (int)v_end || vertical < v_start) { return str_from_board.at(0); }
+            for(unsigned int i = 0; i < len && horizontal + i < h_end; ++i) {
+                try {
+                    str_from_board.at(0).at(i) = board.at(horizontal-h_start + i).at(vertical-v_start);
+                } catch (const exception& e) {
+
+                }
+            }
+            return str_from_board.at(0);
         default:
             throw out_of_range("invalid Direction type");
     }
