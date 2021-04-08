@@ -15,49 +15,46 @@ using ariel::Direction;
 
 // post function
 void ariel::Board::post(unsigned int horizontal, unsigned int vertical, Direction dir, const string &message){
-    switch(dir) {
-        case Direction::Horizontal:
-            update(horizontal, vertical, dir, message.length());
-            board.at(horizontal-h_start).replace(vertical-v_start,message.length(),message);
-            break;
-        case Direction::Vertical:
-            update(horizontal, vertical, dir, message.length());
-            for(unsigned int i = 0; i < message.length() ; ++i) { board.at(horizontal-h_start+i).at(vertical-v_start) = message[i]; }
-            break;
-        default:
-            throw out_of_range("invalid Direction type");
+    if(dir == Direction::Horizontal) {
+        update(horizontal, vertical, dir, message.length());
+        board.at(horizontal-h_start).replace(vertical-v_start,message.length(),message);
+    } else if(dir == Direction::Vertical) {
+        update(horizontal, vertical, dir, message.length());
+        unsigned int i = 0;
+        while(i < message.length()) {
+            board.at(horizontal-h_start+i).at(vertical-v_start) = message[i];
+            ++i;
+        }
     }
 }
 
 // read function
-string ariel::Board::read(unsigned int horizontal, unsigned int vertical, Direction d, unsigned int len) {
+string ariel::Board::read(unsigned int horizontal, unsigned int vertical, Direction dir, unsigned int len) {
     vector<string> str_from_board(1, "_");
-    switch(d) {
-        case Direction::Horizontal:
-            str_from_board.at(0).resize(len, '_');
-            if(horizontal + 1 > h_end || horizontal < h_start) {
-                return str_from_board.at(0);
-                }
-            for(unsigned int i = 0; i < len; ++i) {
-                try {
-                    str_from_board.at(0).at(i)=board.at(horizontal-h_start).at(vertical-v_start+i);
-                } catch (const exception& e) {}
-            }
+    if(dir == Direction::Horizontal) {
+        str_from_board.at(0).resize(len, '_');
+        if(horizontal + 1 > h_end || horizontal < h_start) {
             return str_from_board.at(0);
-        case Direction::Vertical:
-            str_from_board.at(0).resize(len, '_');
-            if(vertical + 1 > (int)v_end || vertical < v_start) { return str_from_board.at(0); }
-            for(unsigned int i = 0; i < len && horizontal + i < h_end; ++i) {
-                try {
-                    str_from_board.at(0).at(i) = board.at(horizontal-h_start + i).at(vertical-v_start);
-                } catch (const exception& e) {
+            }
+        for(unsigned int i = 0; i < len; ++i) {
+            try {
+                str_from_board.at(0).at(i)=board.at(horizontal-h_start).at(vertical-v_start+i);
+            } catch (const exception& e) {}
+        }
+        return str_from_board.at(0);
+    } else if(dir == Direction::Vertical) {
+        str_from_board.at(0).resize(len, '_');
+        if(vertical + 1 > (int)v_end || vertical < v_start) { return str_from_board.at(0); }
+        for(unsigned int i = 0; i < len && horizontal + i < h_end; ++i) {
+            try {
+                str_from_board.at(0).at(i) = board.at(horizontal-h_start + i).at(vertical-v_start);
+            } catch (const exception& e) {
 
-                }
             }
-            return str_from_board.at(0);
-        default:
-            throw out_of_range("invalid Direction type");
+        }
+        return str_from_board.at(0);
     }
+    return string("invalid direction input");
 }
 
 // update function
