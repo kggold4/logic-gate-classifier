@@ -57,7 +57,7 @@ string ariel::Board::read(unsigned int horizontal, unsigned int vertical, Direct
     return string("invalid direction input");
 }
 
-// update function
+// update the board size function
 void ariel::Board::update(unsigned int horizontal, unsigned int vertical, Direction dir, unsigned int len) {
     int h_len = 0, v_len = 0;
 
